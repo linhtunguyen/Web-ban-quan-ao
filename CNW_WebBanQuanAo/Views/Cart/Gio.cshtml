@@ -122,7 +122,10 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>
+
+                        @*<li>
+                        
+
                             <form action="@Url.Action("AddItemCSDL")" method="post">
                                 @foreach (CartItem it in Model.Lines)
                                 {
@@ -135,7 +138,7 @@
                                 <button type="submit" class="btn btn-default update">Tạm chưa thanh toán</button>
                             </form>
 
-                        </li>
+                        </li>*@
                         <li>Tạm tính<span> @tongtien 000đ</span></li>
                        
                         <a class="btn btn-default check_out" href="/Cart/Payment">Thanh toán</a>

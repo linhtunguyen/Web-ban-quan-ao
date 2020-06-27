@@ -67,128 +67,66 @@
                             <div class="shop-menu clearfix pull-right">
                                 <ul class="nav navbar-nav">
                                     <li><a href="~/Admin/Admin/Index"><i class="fa fa-user"></i> Admin</a></li>
-                                    <li>
 
-                                        @if (Session["dnhap"] != null)
-                                        {
-                                            <i class="fa fa-user">
-                                                @Html.ActionLink("Tài khoản", "XemDon", "Cart")
-                                            </i>
-                                        }
-                                        else
-                                        {
-                                            <i class="fa fa-user">
-                                                @Html.ActionLink("Tài khoản", "DangNhap", "Account")
-                                            </i>
-
-
-
-                                            <a href="/Cart/XemDon"><i class="fa fa-user"></i>Tài khoản</a>
-                                        }
-                                        @*else
-                  {
-                      <a href="/Account/DangNhap"><i class="fa fa-user"></i>Tài khoản</a>
-
-                  }*@
-
-                                        }
-
-                                    </li>
-                                    <li><a href=""><i class="fa fa-star"></i> Sản phẩm yêu thích</a></li>
-                                    <li>
-                                        @if (Session["dnhap"] != null && Session["CartSession"] != null)
+                                    
+                                        @*@if (Session["dnhap"] != null && Session["CartSession"] != null)
                                         {
                                             <i class="fa fa-crosshairs">
                                                 @Html.ActionLink("Thanh toán", "Payment", "Cart")
                                             </i>
+                                            <li><a href="/Cart/Payment"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
                                         }
                                         else if (Session["dnhap"] == null)
-                                        { <i class="fa fa-crosshairs">
+                                        { 
+                                            <i class="fa fa-crosshairs">
                                                 @Html.ActionLink("Thanh toán", "DangNhap", "Account")
                                             </i>
+                                            <li><a href="/Account/DangNhap"><i class="fa fa-crosshairs"></i>Thanh toán</a></li>
                                         }
                                         else if (Session["dnhap"] != null && Session["CartSession"] == null)
                                         {
                                             <i class="fa fa-crosshairs">
                                                 @Html.ActionLink("Thanh toán", "ThanhToan", "Cart")
                                             </i>
-                                        }
-                                    </li>
-                                    <li>
+                                            <li><a href="/Account/DangNhap"><i class="fa fa-user"></i>Tài khoản</a></li>
+                                        }*@
+                                    <li><a href="/Cart/Payment"><i class="fa fa-crosshairs"></i>Giỏ hàng</a></li>
+                                    @*<li>
                                         @if (Session["dnhap"] == null && Session["CartSession"] != null)
                                         {
                                             <i class="fa fa-shopping-cart">
                                                 @Html.ActionLink("Giỏ hàng", "Gio", "Cart")
                                             </i>
+                                            <li><a href="/Account/DangNhap"><i class="fa fa-user"></i>Tài khoản</a></li>
                                         }
-
                                         else if (Session["dnhap"] != null && Session["CartSession"] == null)
                                         {
                                             <i class="fa fa-shopping-cart">
                                                 @Html.ActionLink("Giỏ hàng", "GioTam", "Cart")
                                             </i>
+                                            <li><a href="/Account/DangNhap"><i class="fa fa-user"></i>Tài khoản</a></li>
                                         }
                                         else if (Session["dnhap"] == null && Session["CartSession"] == null)
                                         {
                                             <i class="fa fa-shopping-cart">
                                                 @Html.ActionLink("Giỏ hàng", "DangNhap", "Account")
                                             </i>
+                                            <li><a href="/Account/DangNhap"><i class="fa fa-user"></i>Tài khoản</a></li>
                                         }
-                                    </li>
-
+                                    </li>*@
+                                    
                                     @{var user = (TAIKHOAN)Session["dnhap"];
-                                        if (user == null)
-                                        {
-                                         
-                                            <li class=" dropdown">
-                                                <a href="~/Account/DangNhap"><i class="fa fa-lock"> Đăng nhập</i> </a>
-
-
-                                                <ul class="sub-menu">
-
-                                                    <li><a href="~/Account/Register" style="background: none;">Đăng kí</a></li>
-                                                    <br />
-                                                    <li><a href="~/Account/Logout" style="background: none;">Đăng xuất</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-                                        }
-                                        else
-                                        {
-
-                                            <li class=" dropdown">
-                                                <a href="~/Account/DangNhap"><i class="fa fa-user"> @user.Username</i> </a>
-
-
-                                                <ul class="sub-menu">
-
-                                                    <li><a href="~/Account/Register" style="background: none;">Đăng kí</a></li>
-                                                    <br />
-                                                    <li><a href="~/Account/Logout" style="background: none;">Đăng xuất</a></li>
-
-                                                </ul>
-
-                                            </li>
-
-
-
-
-                                    @{var user = (TAIKHOAN)Session["LoggedinUser"];
                                         if (user is null)
                                         {
-                                            <li><a href="~/Account/Login"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                                            <li><a href="/Account/DangNhap"><i class="fa fa-lock"></i>Đăng nhập</a></li>
                                         }
                                         else
                                         {
-                                            <li><a href="~/Account/Login"><i class="fa fa-user"></i> @user.HoTen </a></li>
-
+                                            <li><a href="/Cart/XemDon"><i class="fa fa-user"></i>@user.HoTen </a></li>
                                         }
                                     }
-                                  
                                 </ul>
-</div>
+                            </div>
                         </div>
                     </div>
                 </div>
