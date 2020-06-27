@@ -1,4 +1,4 @@
-namespace CNW_WebBanQuanAo.Models
+﻿namespace CNW_WebBanQuanAo.Models
 {
     using System;
     using System.Collections.Generic;
@@ -14,9 +14,9 @@ namespace CNW_WebBanQuanAo.Models
 
         [StringLength(50)]
         public string MaKH { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập tiêu đề")]
         public string TieuDe { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập nội dung")]
         public string NoiDung { get; set; }
 
         public DateTime? NgayGui { get; set; }

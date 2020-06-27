@@ -58,11 +58,58 @@ namespace CNW_WebBanQuanAo.Controllers
 
             return View();
         }
+        [HttpGet]
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+        [HttpPost]
+        public ActionResult Contact( string subject, string message)
+        {
+         
+     
+           
+
+            if(ModelState.IsValid)
+            {
+                if(subject.Equals("")||message.Equals(""))
+                {
+                    ModelState.AddModelError("", "Điền thiếu thông tin");
+                }
+                else
+                {
+                    PHANHOI model = new PHANHOI();
+                    var dn = (TAIKHOAN)Session["dnhap"];
+
+                    var tk = context.TAIKHOAN.Find(dn.Username);
+                    var makh = dn.Username;
+                    model.NgayGui = DateTime.Now;
+                    model.MaKH = makh.ToString();
+
+                    model.TieuDe = subject;
+                    model.NoiDung = message;
+                    var result = context.PHANHOI.Add(model);
+                    if (result != null)
+                    {
+                        ViewBag.Success = " Gửi phản hồi thành công";
+
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", " Không hợp lệ");
+
+                    }
+                    context.SaveChanges();
+                }
+               
+            }
+
+
+        
+            
+            return View();
+            
         }
         public ActionResult TestWebService()
         {

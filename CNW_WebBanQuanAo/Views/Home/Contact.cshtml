@@ -3,8 +3,20 @@
 }
 @*<h2>@ViewBag.Title.</h2>
     <h3>@ViewBag.Message</h3>*@
+@using CNW_WebBanQuanAo.ViewModel;
+@using CNW_WebBanQuanAo.Controllers;
+@using CNW_WebBanQuanAo.Models;
+@{ MyContext context = new MyContext(); }
 
+@{
+    var dn = (TAIKHOAN)Session["dnhap"];
 
+    var tk = context.TAIKHOAN.Find(dn.Username);
+    var makh = tk.Username;
+    var hten = tk.HoTen; ;
+    var dc = tk.DiaChi;
+    var email = tk.Email;
+}
 <div id="contact-page" class="container">
     <div class="bg">
         <div class="row container ">
@@ -13,25 +25,37 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="contact-form">
+
                     <h2 class="title text-center">Liên hệ </h2>
+                    <div class="form-group">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @if (ViewBag.Success != null)
+                        {
+                            <div class="alert  alert-success">@ViewBag.Success</div>
+                        }
+                    </div>
                     <div class="status alert alert-success" style="display: none"></div>
                     <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+
                         <div class="form-group col-md-6">
-                            <input type="text" name="name" class="form-control" required="required" placeholder="Tên">
+                            <input type="text" name="name" value=" @hten" class="form-control" required="required" placeholder="Tên">
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+                            <input type="email" name="email" value="@email" class="form-control" required="required" placeholder="Email">
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <input type="text" name="subject" class="form-control"  placeholder="Chủ đề">
                         </div>
                         <div class="form-group col-md-12">
-                            <input type="text" name="subject" class="form-control" required="required" placeholder="Chủ đề">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+                            <textarea name="message" id="message"  class="form-control" rows="8" placeholder="Your Message Here"></textarea>
                         </div>
                         <div class="form-group col-md-12">
                             <input type="submit" name="submit" class="btn btn-primary pull-right" value="Gửi">
+
                         </div>
                     </form>
+
                 </div>
             </div>
             <div class="col-sm-4">

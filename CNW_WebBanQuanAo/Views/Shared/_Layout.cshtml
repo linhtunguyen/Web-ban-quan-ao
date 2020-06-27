@@ -81,7 +81,18 @@
                                                 @Html.ActionLink("Tài khoản", "DangNhap", "Account")
                                             </i>
 
+
+
+                                            <a href="/Cart/XemDon"><i class="fa fa-user"></i>Tài khoản</a>
                                         }
+                                        @*else
+                  {
+                      <a href="/Account/DangNhap"><i class="fa fa-user"></i>Tài khoản</a>
+
+                  }*@
+
+                                        }
+
                                     </li>
                                     <li><a href=""><i class="fa fa-star"></i> Sản phẩm yêu thích</a></li>
                                     <li>
@@ -124,6 +135,46 @@
                                             </i>
                                         }
                                     </li>
+
+                                    @{var user = (TAIKHOAN)Session["dnhap"];
+                                        if (user == null)
+                                        {
+                                         
+                                            <li class=" dropdown">
+                                                <a href="~/Account/DangNhap"><i class="fa fa-lock"> Đăng nhập</i> </a>
+
+
+                                                <ul class="sub-menu">
+
+                                                    <li><a href="~/Account/Register" style="background: none;">Đăng kí</a></li>
+                                                    <br />
+                                                    <li><a href="~/Account/Logout" style="background: none;">Đăng xuất</a></li>
+
+                                                </ul>
+
+                                            </li>
+
+                                        }
+                                        else
+                                        {
+
+                                            <li class=" dropdown">
+                                                <a href="~/Account/DangNhap"><i class="fa fa-user"> @user.Username</i> </a>
+
+
+                                                <ul class="sub-menu">
+
+                                                    <li><a href="~/Account/Register" style="background: none;">Đăng kí</a></li>
+                                                    <br />
+                                                    <li><a href="~/Account/Logout" style="background: none;">Đăng xuất</a></li>
+
+                                                </ul>
+
+                                            </li>
+
+
+
+
                                     @{var user = (TAIKHOAN)Session["LoggedinUser"];
                                         if (user is null)
                                         {
@@ -132,10 +183,12 @@
                                         else
                                         {
                                             <li><a href="~/Account/Login"><i class="fa fa-user"></i> @user.HoTen </a></li>
+
                                         }
                                     }
+                                  
                                 </ul>
-                            </div>
+</div>
                         </div>
                     </div>
                 </div>
