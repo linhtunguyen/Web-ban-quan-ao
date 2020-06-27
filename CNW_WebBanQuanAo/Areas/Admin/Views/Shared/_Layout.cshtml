@@ -6,15 +6,24 @@
     <title>@ViewBag.Title - E-Shopper Admin</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Content/css/price-range.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/css/main.css" rel="stylesheet">
+    <link href="~/Content/css/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/Content/css/adminHuy.css" rel="stylesheet">
 </head>
+@using CNW_WebBanQuanAo.Models;
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
+                    <a href="~/Areas/Admin/Views/Shared/_Layout.cshtml">~/Areas/Admin/Views/Shared/_Layout.cshtml</a>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
@@ -23,7 +32,33 @@
             <div class="navbar-collapse collapse" style="float:right">
                 <ul class="nav navbar-nav">
                     <li><a href="~/Home/Index">Trở lại trang mua sắm</a></li>
-                    <li><a href="">Tài khoản <i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
+
+                    @{var user = (TAIKHOAN)Session["AdminLogin"];
+                        if (user == null)
+                        {
+
+                            <li class=" dropdown">
+                                <a href="/Account/DangNhap"><i class="fa fa-user"> Đăng nhập</i> </a>
+                                <ul class="sub-menu">
+                                    <li><a href="/Admin/Admin/Register" style="background: none;">Đăng kí</a></li>
+                                    <br />
+                                    <li><a href="/Admin/Admin/Logout" style="background: none;">Đăng xuất</a></li>
+                                </ul>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class=" dropdown">
+                                <a href="#"><i class="fa fa-user"> @user.HoTen</i> </a>
+                                <ul class="sub-menu">
+                                    <li><a href="~/Admin/Admin/Register" style="background: none;">Đăng kí</a></li>
+                                    <br />
+                                    <li><a href="~/Admin/Admin/Logout" style="background: none;">Đăng xuất</a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>

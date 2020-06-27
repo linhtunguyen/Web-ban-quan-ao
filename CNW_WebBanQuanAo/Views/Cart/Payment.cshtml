@@ -1,14 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-
-
-
-
 @using CNW_WebBanQuanAo.Controllers;
 @using CNW_WebBanQuanAo.Models;
 
@@ -17,167 +10,244 @@
 
 @{ MyContext context = new MyContext(); }
 
-@{
+@*@{
     var dn = (TAIKHOAN)Session["dnhap"];
 
     var tk = context.TAIKHOAN.Find(dn.Username);
-    var hten = tk.HoTen; ;
+    var hten = tk.HoTen;
     var dc = tk.DiaChi;
-}
+}*@
 
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
-            <ol class="breadcrumb">
-                <li><a href="#">Trang chủ</a></li>
-                <li class="active">Thanh toán</li>
-            </ol>
-        </div><!--/breadcrums-->
-
-        <div class="step-one">
-            <h2 class="heading">Bước 1</h2>
-        </div>
-        <div class="checkout-options">
-            <h3>Người dùng mới</h3>
-            <p>Tùy chọn thanh toán</p>
-            <ul class="nav">
-                <li>
-                    <label><input type="checkbox"> Đăng kí tài khoản</label>
-                </li>
-                <li>
-                    @*<label>*@
-                        @*<input type="checkbox"> Thanh toán khách*@
-
-                    <form action="@Url.Action("AddItemCSDL")" method="post">
-                        @foreach (CartItem it in Model.Lines)
-                        {
-                            <input type="hidden" name="maqa" value="@it.Sanpham.MaQA" />
-
-                            <input type="hidden" name="soluong" value="@it.Quantity" />
-
-                        }
-                        <input type="hidden" placeholder="Mã khách" name ="MaKH" value="@tk.Username" />
-                        @*<input type="text" placeholder="Mã khách" name="makh" />*@
-                        @*<input type="checkbox"> Thanh toán khách*@
-
-                        <button type="submit" class="btn btn-default update">Tạm chưa thanh toán</button>
-                    </form>
-                    @*</label>*@
-                </li>
-                <li>
-                    <a href=""><i class="fa fa-times"></i>Hủy</a>
-                </li>
-            </ul>
-        </div><!--/checkout-options-->
-
-        <div class="register-req">
-            <p>Vui lòng sử dụng Đăng ký và Thanh toán để dễ dàng truy cập vào lịch sử đặt hàng của bạn hoặc sử dụng Checkout với tư cách là Khách</p>
-        </div><!--/register-req-->
-
-        <div class="shopper-informations">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="shopper-info">
-                        <p>Thông tin người mua</p>
-                        <form method="post" action="/Cart/Payment">
-                            <input type="text" placeholder="Mã khách" name="MaKH" value="@dn.Username">
-                            <input type="text" placeholder="Tên khách" name="TenKhach" value="@hten">
-                            <input type="text" placeholder="Địa chỉ khách" name="DiaChiKhach" value="@dc">
-                            <input type="text" placeholder="Ngày giao" name="Ngaygiao" value="@DateTime.Now">
-                            <input type="hidden" placeholder="Trạng thái" name="TrangThai" value="Đang xử lí">
-                            <button type="submit" class="btn">Thanh toán hoàn tất</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="order-message">
-                        <p>Vận chuyển</p>
-                        <textarea name="message" placeholder="Ghi chú về đơn hàng của bạn, Ghi chú đặc biệt khi giao hàng" rows="16"></textarea>
-                        <label><input type="checkbox"> Vận chuyển đến địa chỉ hóa đơn</label>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="review-payment">
-            <h2>Xem lại và thanh toán</h2>
+            <h2>Giỏ hàng</h2>
         </div>
         <div class="table-responsive cart_info">
-            <table class="table table-condensed">
+            <table class="table table-condensed" id="TableChinh">
                 <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Sản phẩm</td>
+                    <tr class="cart_menu text-center">
+                        <td class="checkbox"></td>
+                        <td class="image ">Sản phẩm</td>
                         <td class="description">Tên mặt hàng</td>
-                        <td class="description">Mã màu</td>
+                        <td class="description">Màu</td>
+                        <td class="total">Size</td>
                         <td class="price">Giá</td>
                         <td class="quantity">Số lượng</td>
-                        <td class="total">Mã size</td>
+                        <td class="">Tổng tiền</td>
                         <td></td>
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach (CartItem it in Model.Lines)
                     {
-                        <tr>
-
-                            <td class="cart_product">
-                                <img src="~/Content/images/cart/@it.Sanpham.MATHANG.UrlAnh" alt="" />
-
+                        <tr class="text-center" id="HangSP">
+                            <td>
+                                <input id="CheckBox" type="checkbox" value="@it.Sanpham.MaQA" checked onclick="UpdateTotalMoney()" />
+                            </td>
+                            <td class="cart_product text-center">
+                                <img src="~/content/images/sanpham/@it.Sanpham.MATHANG.UrlAnh" alt="" style="width:70px" />
                             </td>
                             <td class="cart_description">
-
                                 <p>@it.Sanpham.MATHANG.TenMH</p>
                             </td>
-                            <td class="cart_description">
-
-                                <p>@it.Sanpham.MAU.TenMau</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>@it.Sanpham.MATHANG.GiaBan 000đ</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>@it.Quantity</p>
+                            <td class="cart_description" style="font-size: 18px">
+                                <p style="text-shadow: 0 0 5px @it.Sanpham.MaMau">@it.Sanpham.MAU.TenMau</p>
                             </td>
                             <td class="cart_total">
                                 <p class="cart_total_price">@it.Sanpham.MaSize</p>
                             </td>
+                            <td class="cart_price">
+                                <p>@it.Sanpham.MATHANG.GiaBan 000đ</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <input class="cart_quantity_input" style="margin-bottom:10px" type="number" min="1" max="50" step="1" masp="@it.Sanpham.MaQA" value="@it.Quantity" autocomplete="off" size="2">
+                                </div>
+                            </td>
+                            <td id="TongTien">
+                                <p id="@it.Sanpham.MaQA" style="font-size:16px">@CartController.MoneyType(it.Sanpham.MATHANG.GiaBan * it.Quantity) 000 đ</p>
+                            </td>
+                            <td class="cart_delete">
+                                <a class="cart_quantity_delete" href="@Url.Action("RemoveLine", new { id = it.Sanpham.MaQA })"><i class="fa fa-times"></i></a>
+                            </td>
                         </tr>
                     }
-
-
-
                     <tr>
-                        <td colspan="4">&nbsp;</td>
+                        <td colspan="7"></td>
                         <td colspan="2">
                             <table class="table table-condensed total-result">
                                 <tr>
                                     <td>Tổng số giỏ hàng</td>
-                                    <td>@tongtien 000đ</td>
+                                    <td id="TongCong">@CartController.MoneyType((int?)tongtien) 000đ</td>
                                 </tr>
-                                <tr class="shipping-cost">
+                                <tr class="shipping-cost" id="ThuTi">
                                     <td>Phí vận chuyển</td>
-                                    <td>Miễn phí</td>
+                                    <td id="olala">Miễn phí</td>
                                 </tr>
                                 <tr>
                                     <td>Tổng cộng</td>
-                                    <td><span>@tongtien 000đ</span></td>
+                                    <td><span id="TongCong">@CartController.MoneyType((int?)tongtien) 000đ</span></td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
-        <div class="payment-options">
+
+        @{
+            if (Session["dnhap"] == null)
+            {
+                <button onclick="location.href='/Account/DangNhap'" class="btn btn-default">Thanh toán</button>
+            }
+            else //Da dang nhap
+            {
+                <button id="BtnThanhToan" class="btn btn-default">Thanh toán</button>
+
+                <div class="shopper-informations" style="display:none">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="shopper-info">
+                                <p>Thông tin người mua</p>
+                                <div class="shopper-info">
+                                    <form method="post" action="/Cart/Payment">
+                                        @*<label>Tài khoản</label>
+                                        <input type="text" placeholder="Mã khách" name="MaKH" value="@dn.Username">
+                                        <label>Tên người nhận</label>
+                                        <input type="text" placeholder="Tên khách" name="TenKhach" value="@hten">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" placeholder="Địa chỉ khách" name="DiaChiKhach" value="@dc">
+                                        <label>Thời gian đặt</label>
+                                        <input type="text" placeholder="Ngày giao" name="Ngaygiao" value="@DateTime.Now">
+                                        <input type="hidden" placeholder="Trạng thái" name="TrangThai" value="Đang xử lí">
+                                        <button type="submit" class="btn">Thanh toán hoàn tất</button>*@
+                                        <label>Tài khoản</label>
+                                        <input type="text" placeholder="Mã khách" id="MaKH" name="MaKH" value="">
+                                        <label>Tên người nhận</label>
+                                        <input type="text" placeholder="Tên khách" id="TenKhach" name="TenKhach" value="">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" placeholder="Địa chỉ khách" id="DiaChiKhach" name="DiaChiKhach" value="">
+                                        <label>Thời gian đặt</label>
+                                        <input type="text" placeholder="Ngày giao" name="Ngaygiao" value="@DateTime.Now">
+                                        <input type="hidden" placeholder="Trạng thái" name="TrangThai" value="Đang xử lí">
+                                        <button type="submit" class="btn">Đặt hàng</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="order-message">
+                                <p>Vận chuyển</p>
+                                <textarea name="message" placeholder="Ghi chú về đơn hàng của bạn, Ghi chú đặc biệt khi giao hàng" rows="16"></textarea>
+                                <label><input type="checkbox"> Vận chuyển đến địa chỉ hóa đơn</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
 
 
-            <span>
-                <label><input type="checkbox"> Chuyển tiền trực tiếp<br /> qua ngân hàng</label>
-            </span>
-            <span>
-                <label><input type="checkbox">Kiểm tra thanh<br /> toán trực tiếp</label>
-            </span>
-        </div>
     </div>
 </section> <!--/#cart_items-->
+
+<script>
+    function RemoveSpaces(money) {
+        money = String(money);
+        var rs = "";
+        for (var i = 0; i < money.length; i++) {
+            if (money[i] != " ") {
+                rs = rs + money[i];
+            }
+
+        }
+        return rs;
+    }
+
+    function UpdateTotalMoney() {
+        var totalMoney = 0;
+        $.each($("td #CheckBox"), function (i, obj) {
+            //var c = $(this).children("#CheckBox")
+
+            if ($(this).is(":checked")) {
+                var money = $("td #" + $(this).attr("value")).text();
+                totalMoney += parseInt(RemoveSpaces(money));
+            }
+            else {
+            }
+        })
+
+        //$.each($("#TongTien p"), function (i, obj) {
+        //    totalMoney += parseInt(RemoveSpaces(($(this).text())));
+        //})
+
+        //alert(ToMoney(totalMoney));
+        $.each($("tr #TongCong"), function (i, obj) {
+            $(this).text(ToMoney(totalMoney))
+        })
+    }
+
+    function ToMoney(money) {
+        money = String(money);
+        var result = '';
+        var c = 1;
+        for (var i = money.length - 1; i >= 0; i--) {
+            result = money[i] + result;
+            if (c % 3 == 0) {
+                result = ' ' + result;
+            }
+            c++;
+        }
+
+        return result;
+    }
+
+    $(document).ready(function () {
+        $(".cart_quantity_input").change(function () {
+            var q = parseInt($(this).val());
+            var prodID = $(this).attr("masp");
+
+            $.ajax({
+                type: 'POST',
+                url: '/Cart/UpdateCart',
+                data: { masp: prodID, qty: q },
+                success: function (result) {
+                    var ta = prodID;
+                    $("td #" + ta).text(ToMoney(result) + ' 000đ')
+                    UpdateTotalMoney();
+                },
+                error: function (err) {
+                }
+            })
+        })
+
+        $("#BtnThanhToan").click(function () {
+            $(this).hide();
+            $(".shopper-informations").show();
+        })
+
+        $('#BtnThanhToan').ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Cart/GetUserAccount',
+                dataType: 'json',
+                success: function (result) {
+                    //alert(result)
+                    //alert(result[0].HoTen)
+
+                    //$('#MaKH').att("value", result.Username)
+                    $('#MaKH').val(result[0].Username)
+                    $('#TenKhach').val(result[0].HoTen)
+                    $('#DiaChiKhach').val(result[0].DiaChi)
+                },
+                error: function () {
+                    //alert('erorr cua ajax btn tt')
+                }
+            })
+        })
+    })
+
+</script>

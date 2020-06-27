@@ -58,42 +58,35 @@
                             <h2>@Model.TenMH</h2>
 
                             <p >Mã : <span id="ProdID">@Model.MaMH</span></p>
-                            <br />
                             <span style="padding-bottom:20px;">
-                                    <span>@Model.GiaBan 000₫</span>
-                                    <br />
+                                <span style="float:none">@Model.GiaBan 000₫</span>
+                                @*<br />*@
 
-                                    <div id="BangMau">
-                                        @{int i = 1;
-                                            foreach (var item in (from sp in Model.SANPHAM
-                                                                  group sp by sp.MaMau into mau
-                                                                  select mau))
-                                            {
-                                                <div id="@i" href="" class="color-box" style="background-color:@item.Key; cursor:pointer"></div>
-                                                i++;
-                                            }
-                                        }
-                                    </div>
-
-                                    <select id="BangSize">
-                                    </select>
-
-                                    @*<select name="idSanPham" id="idSanPham">
-                                        @foreach (var item in Model.SANPHAM)
+                                <p>Màu sản phẩm</p>
+                                <div id="BangMau" style="dislay:block;">
+                                    @{int i = 1;
+                                        foreach (var item in (from sp in Model.SANPHAM
+                                                              group sp by sp.MaMau into mau
+                                                              select mau))
                                         {
-                                            <option value="@item.MaQA">Mã màu: @item.MaMau - Size: @item.MaSize</option>
+                                            <div id="@i" href="" class="color-box" style="background-color:@item.Key; cursor:pointer"></div>
+                                            i++;
                                         }
-                                    </select>*@
-                                    <br />
-                                    <br />
+                                    }
+                                </div>
+                                <br />
+                                <br />
+                                <select id="BangSize"></select>
+                                <br />
+                                <br />
 
-                                    <label for="quantity">Số lượng:</label>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="20" value="1">
+                                <label for="quantity">Số lượng:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="20" value="1">
 
-                                    <button type="submit" class="btn btn-fefault cart" onclick="AddToCart()">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Thêm vào giỏ
-                                    </button>
+                                <button type="submit" class="btn btn-fefault cart" onclick="AddToCart()">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Thêm vào giỏ
+                                </button>
                             </span>
                             <p><b>Kiểu dáng: </b>@Model.KieuDang</p>
                             <p><b>Chất liệu: </b>@Model.ChatLieu</p>
