@@ -15,25 +15,6 @@ namespace CNW_WebBanQuanAo.Controllers
         MyContext context = new MyContext();
         public ActionResult Index()
         {
-            //var model = context.MATHANG.Where(x => x.TenMH != null).ToList();
-            //return View(model);
-            //HttpCookie testCookie = new HttpCookie("testCookie");
-            //testCookie.Value = "day la dong thu nhat";
-            //Response.Cookies.Add(testCookie);
-            //HttpCookie loginCookie = new HttpCookie("LoginCookie");
-            //loginCookie["username"] = "day la username";
-            //loginCookie["password"] = "ehehehe";
-
-            //Response.Cookies["usernameCookie"].Value = "Day la username";
-            //Response.Cookies["passwordCookie"].Value = "Day la username";
-
-
-            //Response.Write(Request.Cookies["testCookie"].Value + "egggggggggggg" + Request.Cookies["usernameCookie"].Value);
-            //Response.Write(Request.Cookies["LoginCookie"]["username"]);
-            //Response.Write(Request.Cookies["LoginCookie"]["password"]);
-            //Response.Write("Ehehihioaweithoaewthai");
-
-
             var model = context.MATHANG.Where(x => x.MaMH != null).ToList();
 
 
@@ -64,15 +45,11 @@ namespace CNW_WebBanQuanAo.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Contact( string subject, string message)
+        public ActionResult Contact(string subject, string message)
         {
-         
-     
-           
-
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(subject.Equals("")||message.Equals(""))
+                if (subject.Equals("") || message.Equals(""))
                 {
                     ModelState.AddModelError("", "Điền thiếu thông tin");
                 }
@@ -92,9 +69,7 @@ namespace CNW_WebBanQuanAo.Controllers
                     if (result != null)
                     {
                         ViewBag.Success = " Gửi phản hồi thành công";
-
-
-                    }
+                    }   
                     else
                     {
                         ModelState.AddModelError("", " Không hợp lệ");
@@ -102,14 +77,10 @@ namespace CNW_WebBanQuanAo.Controllers
                     }
                     context.SaveChanges();
                 }
-               
+
             }
-
-
-        
-            
             return View();
-            
+
         }
         public ActionResult TestWebService()
         {
