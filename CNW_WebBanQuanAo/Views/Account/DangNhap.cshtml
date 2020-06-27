@@ -6,8 +6,7 @@
 }
 
 
-
-<section id="form" style="margin-top: 10px; margin-bottom:25px;">
+<section id="form" style="margin-bottom:25px;margin-top:15px;">
     <!--form-->
     <div class="container">
         <div class="row">
@@ -17,6 +16,7 @@
                     <!--login form-->
                     @using (Html.BeginForm())
                     {
+
                         <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
                         @Html.AntiForgeryToken()
 
@@ -27,7 +27,7 @@
 
                         </div>
 
-                        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-5" })
                             <div class="col-md-10">
@@ -44,18 +44,7 @@
                             </div>
                         </div>
 
-                        @*<div class="form-group">
-                @/*Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-5" })*/
-                <div>
-                    <div class="checkbox">
 
-                        <span>
-                            @/*Html.CheckBoxFor(model => model.RememberMe)*/
-                            @/*Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })*/
-                        </span>
-                    </div>
-                </div>
-            </div>*@
                         <br>
                         <div class="form-group">
                             <div class="col-md-offset-20 col-md-10">
@@ -70,7 +59,11 @@
 
                         </div>
                     }
+
                 </div><!--/login form-->
+
+
             </div>
         </div>
+
 </section><!--/form-->

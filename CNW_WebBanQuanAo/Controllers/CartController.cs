@@ -413,8 +413,6 @@ namespace CNW_WebBanQuanAo.Controllers
                              tenmh = b.TenMH,
                              url = d.UrlAnh,
                              Mahd = n.MaHD
-
-
                          }
                         ).OrderByDescending(m => m.Mahd).ToPagedList(page ?? 1, 3);
             return View(model);

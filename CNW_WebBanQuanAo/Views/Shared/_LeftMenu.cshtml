@@ -5,14 +5,13 @@
     <div class="left-sidebar">
         <div class="brands_products">
             <!--brands_products-->
-            <h2>Thương hiệu</h2>
+            <a href="/Product/Index?MaNSX=-1" style="text-decoration:none"><h2>Thương hiệu</h2></a>
             <div class="brands-name">
                 <ul class="nav nav-pills nav-stacked">
                     @foreach (NHASANXUAT it in Model)
                     {
-        <li><a href="/Product/Index?MaNSX=@it.MaNSX">@it.TenNSX</a></li>
-}
-
+                        <li><a href="/Product/Index?MaNSX=@it.MaNSX">@it.TenNSX</a></li>
+                    }
                 </ul>
             </div>
         </div><!--/brands_products-->
@@ -53,8 +52,8 @@
         var minPrice = parseInt($("#GiaDau").val()) / 1000;
         var maxPrice = parseInt($("#GiaCuoi").val()) / 1000;
 
-        alert(minPrice);
-        alert(maxPrice);
+        //alert(minPrice);
+        //alert(maxPrice);
 
         @*var sort = @ViewBag.CurrentSort;
         var nsx = @ViewBag.NSX;*@
