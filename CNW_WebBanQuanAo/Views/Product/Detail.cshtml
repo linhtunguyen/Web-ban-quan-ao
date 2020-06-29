@@ -24,21 +24,34 @@
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                                <div class="item active">
-                                    <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
-                                </div>
+                            @{
+                                var listAnh = Model.ANH.ToList();
+                                for(var j = 0; j < Model.ANH.Count; j+=3)
+                                {
+                                    var k = Model.ANH.Count - j;
+                                    if (j == 0)
+                                    {
+                                        <div class="item active">
+                                            @for (var t = 0; t < k; t++)
+                                            {
+                                                <a class="hand"><img style="width:50px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" alt=""></a>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="item">
+                                            @for (var t = 0; t < k; t++)
+                                            {
+                                                <a class="hand"><img style="width:50px"  src="~/Content/images/product-details/@listAnh[j+t].UrlAnh" alt=""></a>
+                                            }
+                                        </div>
+
+                                    }
+                                }
+                            }
+                            
+                                
 
                             </div>
 
@@ -56,7 +69,6 @@
                         <div class="product-information">
                             <!--/product-information-->
                             <h2>@Model.TenMH</h2>
-
                             <p >Mã : <span id="ProdID">@Model.MaMH</span></p>
                             <span style="padding-bottom:20px;">
                                 <span style="float:none">@Model.GiaBan 000₫</span>

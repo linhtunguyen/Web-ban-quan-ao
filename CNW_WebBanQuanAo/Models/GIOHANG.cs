@@ -19,7 +19,7 @@ namespace CNW_WebBanQuanAo.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaQA { get; set; }
 
-        public int? SoLuong { get; set; }
+        public int SoLuong { get; set; }
 
         public virtual SANPHAM SANPHAM { get; set; }
 
