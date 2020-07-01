@@ -17,9 +17,29 @@
     <link rel="apple-touch-icon-precomposed" href="~/Content/images/ico/apple-touch-icon-57-precomposed.png">
     <link href="~/Content/css/custom1.css" rel="stylesheet">
     <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <style>
+        /** {
+            box-sizing: border-box;
+        }*/
+
+        /*.zoom {
+            padding: 1px;
+            transition: transform .2s;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+        }
+
+            .zoom:hover {
+                -ms-transform: scale(1.5);*/ /* IE 9 */
+                /*-webkit-transform: scale(1.5);*/ /* Safari 3-8 */
+                /*transform: scale(1.5);
+            }*/
+    </style>
 </head>
 
 @using CNW_WebBanQuanAo.Models;
+
 <body>
     <div>
         <header id="header">
@@ -66,13 +86,14 @@
                             <div class="shop-menu clearfix pull-right">
                                 <ul class="nav navbar-nav" >
                                     <li >
-                                            <a href="/Cart/Payment"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a>
+                                           <a href="/Cart/Payment"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a>
                                     </li>
                                     @{var user = (TAIKHOAN)Session["dnhap"];
                                         if (user == null)
                                         {
                                             <li class=" dropdown">
                                                 <a href="~/Account/DangNhap"><i class="fa fa-user"> Đăng nhập</i> </a>
+                                                <br />
                                                 <ul class="sub-menu">
                                                     <li><a href="~/Account/Register" style="background: none;">Đăng kí</a></li>
                                                     <br />
@@ -84,11 +105,12 @@
                                         else
                                         {
                                             <li class=" dropdown">
-                                                <a href="/Cart/XemDon"><i class="fa fa-user"> @user.Username</i> </a>
+                                                <a href="/Cart/DonHang"><i class="fa fa-user"> @user.Username</i> </a>
+                                                <br />
                                                 <ul class="sub-menu">
-                                                    <li><a href="/Account/Register" style="background: none;">Đăng kí</a></li>
+                                                    <li><a href="~/Cart/DonHang" style="background: none;">Xem đơn</a></li>
                                                     <br />
-                                                    <li><a href="/Account/Logout" style="background: none;">Đăng xuất</a></li>
+                                                    <li><a href="~/Account/Logout" style="background: none;">Đăng xuất</a></li>
                                                 </ul>
 
                                             </li>

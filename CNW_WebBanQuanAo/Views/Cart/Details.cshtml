@@ -1,0 +1,82 @@
+﻿
+@*@model List<CNW_WebBanQuanAo.Models.CTHOADON>*@
+@*@model System.Collections.Generic.List<CNW_WebBanQuanAo.Models.CTHOADON>*@
+@model CNW_WebBanQuanAo.Models.HOADON
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Chi tiết đơn hàng mã: <b>@Model.MaHD</b></h2>
+<p>
+    @Html.ActionLink("Quay lại trang danh sách đơn hàng", "DonHang","Cart")
+</p>
+<row>
+    <div class="col-sm-2">
+        <h5>Tên khách hàng:</h5>
+        <h5>Địa chỉ:</h5>
+        <h5>Tên tài khoản:</h5>
+    </div>
+    <div class="col-sm-4">
+        <h5>@Model.TenKhach</h5>
+        <h5>@Model.DiaChiKhach</h5>
+        <h5>@Model.TAIKHOAN.Username </h5>
+    </div>
+    <div class="col-sm-2">
+        <h5>Ngày đặt: </h5>
+        <h5>Trạng thái: </h5>
+        <h5>Ngày giao: </h5>
+    </div>
+    <div class="col-sm-4">
+        <h5>@Model.NgayDat </h5>
+        <h5>@Model.TrangThai </h5>
+        <h5>@Model.NgayGiao </h5>
+    </div>
+</row>
+
+<table class="table">
+    <caption>Danh sách sản phẩm</caption>
+    <tr>
+        <th>
+            Mã sản phẩm
+        </th>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Màu
+        </th>
+        <th>
+            Size
+        </th>
+        <th>
+            Số lượng
+        </th>
+    </tr>
+    @foreach (var item in Model.GIAODICH)
+    {
+        <tr>
+            <td>
+                @item.SANPHAM.MaQA
+            </td>
+            <td>
+                @item.SANPHAM.MATHANG.TenMH
+            </td>
+            <td>
+                @item.SANPHAM.MAU.TenMau
+            </td>
+            <td>
+                @item.SANPHAM.SIZE.MaSize
+            </td>
+            <td>
+                @item.SoLuong
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+

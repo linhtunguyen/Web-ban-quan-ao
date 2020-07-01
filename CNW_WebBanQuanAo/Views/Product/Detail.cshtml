@@ -5,6 +5,8 @@
 @using CNW_WebBanQuanAo.Models;
 @model MATHANG
 
+
+
 <section>
     <div class="container">
         <div class="row">
@@ -16,45 +18,44 @@
                     <!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="~/Content/images/sanpham/@Model.UrlAnh" alt="" />
-                            @*<h3>ZOOM</h3>*@
+                            <img id="ImgChinh" class="zoom" src="~/Content/images/sanpham/@Model.UrlAnh" alt="" />
                         </div>
                         @* Xu ly sau phan nay *@
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                            @{
-                                var listAnh = Model.ANH.ToList();
-                                for(var j = 0; j < Model.ANH.Count; j+=3)
-                                {
-                                    var k = Model.ANH.Count - j;
-                                    if (j == 0)
+                                @{
+                                    var listAnh = Model.ANH.ToList();
+                                    for (var j = 0; j < Model.ANH.Count; j += 3)
                                     {
-                                        <div class="item active">
-                                            @for (var t = 0; t < k; t++)
-                                            {
-                                                <a class="hand"><img style="width:50px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" alt=""></a>
-                                            }
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="item">
-                                            @for (var t = 0; t < k; t++)
-                                            {
-                                                <a class="hand"><img style="width:50px"  src="~/Content/images/product-details/@listAnh[j+t].UrlAnh" alt=""></a>
-                                            }
-                                        </div>
+                                        var k = Model.ANH.Count - j;
+                                        if (j == 0)
+                                        {
+                                            <div class="item active">
+                                                @for (var t = 0; t < k; t++)
+                                                {
 
+                                                    <img id="ImgCon" style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" class="hand" alt="" onclick="SubImageClick($(this).attr('src'))">
+
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item">
+                                                @for (var t = 0; t < k; t++)
+                                                {
+
+                                                    <a class="hand"><img id="ImgCon" style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" onclick="SubImageClick($(this).attr('src'))" class="hand" alt=""></a>
+
+                                                }
+                                            </div>
+
+                                        }
                                     }
                                 }
-                            }
-                            
-                                
-
                             </div>
-
                             <!-- Controls -->
                             <a class="left item-control" href="#similar-product" data-slide="prev">
                                 <i class="fa fa-angle-left"></i>
@@ -69,7 +70,7 @@
                         <div class="product-information">
                             <!--/product-information-->
                             <h2>@Model.TenMH</h2>
-                            <p >Mã : <span id="ProdID">@Model.MaMH</span></p>
+                            <p>Mã : <span id="ProdID">@Model.MaMH</span></p>
                             <span style="padding-bottom:20px;">
                                 <span style="float:none">@Model.GiaBan 000₫</span>
                                 @*<br />*@
@@ -218,6 +219,11 @@
         return '#' + parts.join('');
     }
 
+    function SubImageClick(btn) {
+        //alert($(this).attr('src'))
+        //alert(btn)
+        $("#ImgChinh").attr('src', btn);
+    }
     $(document).ready(function () {
         $("#BangMau div").ready(function () {
             $("#BangMau #1").css("border", "3px solid");
@@ -248,7 +254,7 @@
         $("#BangMau div").click(function (event) {
             event.preventDefault();
             $("#BangMau div").css("border", "1px solid");
-            $(this).css("border","3px solid")
+            $(this).css("border", "3px solid")
 
             var maMH = $("#ProdID").text();
             var maMau = hexc($(this).css("background-color"))
@@ -256,12 +262,12 @@
             $.ajax({
                 type: 'POST',
                 url: '/Product/SizeByColor',
-                data: {colorID: maMau, prodID: maMH},
+                data: { colorID: maMau, prodID: maMH },
                 dataType: "json",
                 success: function (result) {
                     //$.each(result, function (val) {
-                        //options.append($("<option />").val(this.MaQA).text(this.MaSize));
-                        //options.append(new Option(val.MaSize, val.MaQA);
+                    //options.append($("<option />").val(this.MaQA).text(this.MaSize));
+                    //options.append(new Option(val.MaSize, val.MaQA);
                     //});
                     $('#BangSize')
                         .find('option')
@@ -269,7 +275,7 @@
                         .end();
 
                     //var i = 0;
-                    $.each(result, function(key, val) {
+                    $.each(result, function (key, val) {
                         //$("#BangSize").append('<option value="' + result[i].MaQA + '">' + result[i].MaSize + '</option>');
                         $("#BangSize").append('<option value="' + val.MaQA + '">' + val.MaSize + '</option>');
                         //alert(result[i].MaQA )
@@ -281,5 +287,6 @@
                 }
             })
         })
-    })
+    });
 </script>
+
