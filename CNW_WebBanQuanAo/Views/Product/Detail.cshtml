@@ -1,9 +1,285 @@
-﻿@{
+﻿@*@{
+        ViewBag.Title = "Detail";
+    }
+
+    @using CNW_WebBanQuanAo.Models;
+    @model MATHANG
+
+    <section>
+        <div class="container">
+            <div class="row">
+
+                @Html.Action("LeftMenu", "Home")
+
+                <div class="col-sm-9 padding-right">
+                    <div class="product-details">
+                        product-details
+                        <div class="col-sm-5">
+                            <div class="view-product">
+                                <img src="~/Content/images/sanpham/@Model.UrlAnh" alt="" />
+                                <h3>ZOOM</h3>
+                            </div>
+                             Xu ly sau phan nay
+                            <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+                                 Wrapper for slides
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
+                                        <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
+                                        <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
+                                    </div>
+                                    <div class="item">
+                                        <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
+                                        <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
+                                        <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
+                                    </div>
+                                    <div class="item">
+                                        <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
+                                        <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
+                                        <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
+                                    </div>
+
+                                </div>
+
+                                 Controls
+                                <a class="left item-control" href="#similar-product" data-slide="prev">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                                <a class="right item-control" href="#similar-product" data-slide="next">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="product-information">
+                                /product-information
+                                <h2>@Model.TenMH</h2>
+
+                                <p >Mã : <span id="ProdID">@Model.MaMH</span></p>
+                                <span style="padding-bottom:20px;">
+                                    <span style="float:none">@Model.GiaBan 000₫</span>
+                                    <br />
+
+                                    <p>Màu sản phẩm</p>
+                                    <div id="BangMau" style="dislay:block;">
+                                        @{int i = 1;
+                                            foreach (var item in (from sp in Model.SANPHAM
+                                                                  group sp by sp.MaMau into mau
+                                                                  select mau))
+                                            {
+                                                <div id="@i" href="" class="color-box" style="background-color:@item.Key; cursor:pointer"></div>
+                                                i++;
+                                            }
+                                        }
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <select id="BangSize"></select>
+                                    <br />
+                                    <br />
+
+                                    <label for="quantity">Số lượng:</label>
+                                    <input type="number" id="quantity" name="quantity" min="1" max="20" value="1">
+
+                                    <button type="submit" class="btn btn-fefault cart" onclick="AddToCart()">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Thêm vào giỏ
+                                    </button>
+                                </span>
+                                <p><b>Kiểu dáng: </b>@Model.KieuDang</p>
+                                <p><b>Chất liệu: </b>@Model.ChatLieu</p>
+                                <p><b>Thương hiệu: </b>@Model.MaNSX</p>
+                            </div>/product-information
+                        </div>
+                    </div>/product-details
+
+                    <div class="recommended_items">
+                        recommended_items
+                        <h2 class="title text-center">SẢN PHẨM TƯƠNG TỰ </h2>
+
+                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="~/Content/images//home/recommend1.jpg" alt="" />
+                                                    <h2>56 000₫</h2>
+                                                    <p>Easy Polo Black Edition</p>
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="~/Content/images//home/recommend2.jpg" alt="" />
+                                                    <h2>56 000₫</h2>
+                                                    <p>Easy Polo Black Edition</p>
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="~/Content/images//home/recommend3.jpg" alt="" />
+                                                    <h2>56 000₫</h2>
+                                                    <p>Easy Polo Black Edition</p>
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="~/Content/images//home/recommend1.jpg" alt="" />
+                                                    <h2>56 000₫</h2>
+                                                    <p>Easy Polo Black Edition</p>
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="~/Content/images//home/recommend2.jpg" alt="" />
+                                                    <h2>56 000₫</h2>
+                                                    <p>Easy Polo Black Edition</p>
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="~/Content/images//home/recommend3.jpg" alt="" />
+                                                    <h2>56 000₫</h2>
+                                                    <p>Easy Polo Black Edition</p>
+                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>/recommended_items
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function AddToCart() {
+            return location.href = "/Cart/AddItem?id=" + $('#BangSize').children("option:selected").val() + '&quant=' + $("#quantity").val();
+        }
+
+        function hexc(colorval) {
+            var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            delete (parts[0]);
+            for (var i = 1; i <= 3; ++i) {
+                parts[i] = parseInt(parts[i]).toString(16);
+                if (parts[i].length == 1) parts[i] = '0' + parts[i];
+            }
+            return '#' + parts.join('');
+        }
+
+        $(document).ready(function () {
+            $("#BangMau div").ready(function () {
+                $("#BangMau #1").css("border", "3px solid");
+                var maMH = $("#ProdID").text();
+                var maMau = hexc($("#BangMau #1").css("background-color"))
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Product/SizeByColor',
+                    data: { colorID: maMau, prodID: maMH },
+                    dataType: "json",
+                    success: function (result) {
+                        $('#BangSize')
+                            .find('option')
+                            .remove()
+                            .end();
+
+                        $.each(result, function (key, val) {
+                            $("#BangSize").append('<option value="' + val.MaQA + '">' + val.MaSize + '</option>');
+                        })
+                    },
+                    error: function (ex) {
+                        alert('vafo errr nha')
+                    }
+                })
+            })
+
+            $("#BangMau div").click(function (event) {
+                event.preventDefault();
+                $("#BangMau div").css("border", "1px solid");
+                $(this).css("border","3px solid")
+
+                var maMH = $("#ProdID").text();
+                var maMau = hexc($(this).css("background-color"))
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Product/SizeByColor',
+                    data: {colorID: maMau, prodID: maMH},
+                    dataType: "json",
+                    success: function (result) {
+                        //$.each(result, function (val) {
+                            //options.append($("<option />").val(this.MaQA).text(this.MaSize));
+                            //options.append(new Option(val.MaSize, val.MaQA);
+                        //});
+                        $('#BangSize')
+                            .find('option')
+                            .remove()
+                            .end();
+
+                        //var i = 0;
+                        $.each(result, function(key, val) {
+                            //$("#BangSize").append('<option value="' + result[i].MaQA + '">' + result[i].MaSize + '</option>');
+                            $("#BangSize").append('<option value="' + val.MaQA + '">' + val.MaSize + '</option>');
+                            //alert(result[i].MaQA )
+                            //i++;
+                        })
+                    },
+                    error: function (ex) {
+                        alert('vafo errr nha')
+                    }
+                })
+            })
+        })
+    </script>*@
+
+@{
     ViewBag.Title = "Detail";
 }
 
 @using CNW_WebBanQuanAo.Models;
 @model MATHANG
+
+
 
 <section>
     <div class="container">
@@ -24,21 +300,38 @@
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                                <div class="item active">
-                                    <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="~/Content/images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="~/Content/images/product-details/similar3.jpg" alt=""></a>
-                                </div>
+                                @{
+                                    var listAnh = Model.ANH.ToList();
+                                    for (var j = 0; j < Model.ANH.Count; j += 3)
+                                    {
+                                        var k = Model.ANH.Count - j;
+                                        if (j == 0)
+                                        {
+                                          <div class="item active">
+                                               @for (var t = 0; t < k; t++)
+                                                {
+
+                                                   <a class="hand"><img style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" class="zoom" alt=""></a>
+                                               
+                                                                    }
+                                                 </div>
+                                        }
+                                        else
+                                        {
+                            <div class="item">
+                                @for (var t = 0; t < k; t++)
+                                {
+
+                                    <a class="hand"><img style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" class="zoom" alt=""></a>
+                                   
+                                }
+                            </div>
+
+                                        }
+                                    }
+                                }
+
+
 
                             </div>
 
@@ -56,8 +349,7 @@
                         <div class="product-information">
                             <!--/product-information-->
                             <h2>@Model.TenMH</h2>
-
-                            <p >Mã : <span id="ProdID">@Model.MaMH</span></p>
+                            <p>Mã : <span id="ProdID">@Model.MaMH</span></p>
                             <span style="padding-bottom:20px;">
                                 <span style="float:none">@Model.GiaBan 000₫</span>
                                 @*<br />*@
@@ -236,7 +528,7 @@
         $("#BangMau div").click(function (event) {
             event.preventDefault();
             $("#BangMau div").css("border", "1px solid");
-            $(this).css("border","3px solid")
+            $(this).css("border", "3px solid")
 
             var maMH = $("#ProdID").text();
             var maMau = hexc($(this).css("background-color"))
@@ -244,12 +536,12 @@
             $.ajax({
                 type: 'POST',
                 url: '/Product/SizeByColor',
-                data: {colorID: maMau, prodID: maMH},
+                data: { colorID: maMau, prodID: maMH },
                 dataType: "json",
                 success: function (result) {
                     //$.each(result, function (val) {
-                        //options.append($("<option />").val(this.MaQA).text(this.MaSize));
-                        //options.append(new Option(val.MaSize, val.MaQA);
+                    //options.append($("<option />").val(this.MaQA).text(this.MaSize));
+                    //options.append(new Option(val.MaSize, val.MaQA);
                     //});
                     $('#BangSize')
                         .find('option')
@@ -257,7 +549,7 @@
                         .end();
 
                     //var i = 0;
-                    $.each(result, function(key, val) {
+                    $.each(result, function (key, val) {
                         //$("#BangSize").append('<option value="' + result[i].MaQA + '">' + result[i].MaSize + '</option>');
                         $("#BangSize").append('<option value="' + val.MaQA + '">' + val.MaSize + '</option>');
                         //alert(result[i].MaQA )
@@ -269,5 +561,13 @@
                 }
             })
         })
-    })
+
+       
+
+    });
+
+  
+   
+  
 </script>
+
