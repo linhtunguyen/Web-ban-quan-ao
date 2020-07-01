@@ -4,12 +4,12 @@
     ViewBag.Title = "Đăng kí";
 }
 
-<section id="form">
+<section id="form" style="margin-top:10px">
     <!--form-->
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-3"></div>
+            <div class="col-sm-2"></div>
             <div class="col-sm-7">
                 <div class="signup-form">
 
@@ -25,9 +25,10 @@
                     {
                         @Html.AntiForgeryToken()
                         <!--sign up form-->
-                        <h2 style=" margin-left: 14px;font-size:30px;">Đăng ký</h2>
+                        <h2 style=" margin-left: 120px;font-size:30px;">Đăng ký</h2>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                            
                             <div class="col-md-10">
                                 @Html.TextBoxFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
@@ -35,7 +36,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
@@ -43,7 +44,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
@@ -51,7 +52,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
@@ -59,14 +60,14 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
@@ -74,7 +75,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-5" })
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -85,7 +86,7 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-20 col-md-5">
-                                <button type="submit" class="btn btn-default">Đăng kí</button>
+                                <button type="submit" class="btn btn-default" style="margin-left:110px;">Đăng kí</button>
 
                                 @*<input type="submit" value="Đăng kí" class="btn btn-default" />*@
                             </div>
@@ -93,7 +94,7 @@
                         <div class="form-group">
                             <div class="col-md-10">
                                 <br />
-                                <li>@Html.ActionLink("Đăng nhập", "DangNhap", "Account")</li>
+                                <p style="margin-left:105px;">@Html.ActionLink("Đăng nhập ngay", "DangNhap", "Account")</p>
                             </div>
 
                         </div>

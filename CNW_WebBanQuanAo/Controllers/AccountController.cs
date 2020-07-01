@@ -16,15 +16,11 @@ namespace CNW_WebBanQuanAo.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-
-
             return View();
-
         }
         [HttpGet]
         public ActionResult Register()
         {
-
             return View();
         }
         [HttpPost]
@@ -39,7 +35,6 @@ namespace CNW_WebBanQuanAo.Controllers
                 else if (CheckEmail(model.Email))
                 {
                     ModelState.AddModelError("", "Email này đã được sử dụng");
-
                 }
                 else
                 {
@@ -62,34 +57,29 @@ namespace CNW_WebBanQuanAo.Controllers
                         {
                             ViewBag.Success = " Đăng kí thành công";
                             model = new RegisterModel();
-
                         }
                         else
                         {
                             ModelState.AddModelError("", " Đăng kí thất bại");
-
                         }
                         context.SaveChanges();
                     }
-
-
                 }
             }
 
-            return View(model);
+            return View("DangNhap");
         }
 
         public bool CheckUserName(string Username)
-
         {
             return context.TAIKHOAN.Count(x => x.Username == Username) > 0;
         }
 
         public bool CheckEmail(string Email)
-
         {
             return context.TAIKHOAN.Count(x => x.Email == Email) > 0;
         }
+
         [HttpGet]
         public ActionResult DangNhap()
         {
@@ -100,72 +90,47 @@ namespace CNW_WebBanQuanAo.Controllers
         public ActionResult DangNhap(TAIKHOAN acc, string returnUrl)
         {
             url = returnUrl;
+            if (url is null) 
+                url = ViewBag.returnUrl;
 
-            var result = context.TAIKHOAN.Where(a => a.Username.Equals(acc.Username) &&
-                                                      a.Password.Equals(acc.Password)).FirstOrDefault();
-
-
-
+            var result = context.TAIKHOAN
+                .Where(a => a.Username.Equals(acc.Username) && a.Password.Equals(acc.Password))
+                .FirstOrDefault();
 
             if (ModelState.IsValid)
             {
-
-
-                if (result != null && result.isAdmin == 0)   // đến trang của người mua 
+                if (result != null)
                 {
-                    Session["dnhap"] = acc;
-
-                    if (Session["dnhap"] != null && Session["CartSession"] != null)  // kiểm tra sesion đăng nhập để lúc mua sản phẩm tiếp theo sau khi đăng nhập thì
-                    {                                                                // hệ thống không bắt đăng nhập lại để thêm sản phẩm tiếp vào giỏ hàng nữa
-
-                        return Redirect(returnUrl);
-                    }
-                    else if (Session["dnhap"] != null && Session["CartSession"] == null)
+                    CartController cc = new CartController();
+                    Session["dnhap"] = result;
+                    var cart = (Cart) Session["CartSession"];
+                    if (cart is null)
                     {
-                        return Redirect(returnUrl);
+                        cart = new Cart();
+                        Session["CartSession"] = cart;
+                    }
 
+                    cc.GioCSDLVaoSession(result.Username, cart);
 
+                    if (result.isAdmin == 1)
+                    {
+                        Session["AdminLogin"] = acc;
+                        return Redirect("/Admin/Admin/Index");
                     }
                     else
                     {
-                        if (CheckUser(acc.Username, acc.Password) == 1)
-                        {
-                            ModelState.AddModelError("", " Mật khẩu sai");
-                        }
-                        else if (CheckUser(acc.Username, acc.Password) == 2)
-                        {
-                            ModelState.AddModelError("", "Tên đăng nhập sai ");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", " Tài khoản chưa đăng kí");
-                        }
-
+                        return Redirect(url);
                     }
-
-
-
-                }
-
-
-
-                else if (result != null && result.isAdmin == 1)
-                {
-                    Session["AdminLogin"] = acc;
-
-                    return Redirect("/Admin/Admin/Index"); // đến trang admin
                 }
                 else
                 {
-
+                    Response.Write("Dang nhap sai");
+                    ViewBag.returnUrl = url;
                 }
-
-
             }
             return View();
         }
         public int CheckUser(string Username, string Password)
-
         {
             int kq = context.TAIKHOAN.Count(x => x.Username == Username && x.Password != Password);
             int kq2 = context.TAIKHOAN.Count(x => x.Username != Username && x.Password == Password);
@@ -176,15 +141,20 @@ namespace CNW_WebBanQuanAo.Controllers
             else
                 return 3;
         }
-
-
         public ActionResult Logout()
         {
+            var user = (TAIKHOAN)Session["dnhap"];
+            var cart = (Cart)Session["CartSession"];
+
+            if (user != null && cart != null)
+            {
+                CartController.GioSessionVaoCSDL(user.Username, cart);
+            }
+
             Session["dnhap"] = null;
+            Session["CartSession"] = null;
 
             return Redirect("/Home/Index");
         }
-
-
     }
 }

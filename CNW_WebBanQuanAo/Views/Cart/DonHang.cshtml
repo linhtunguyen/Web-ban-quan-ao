@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<CNW_WebBanQuanAo.Models.HOADON>
+
+@{
+    ViewBag.Title = "DonHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using CNW_WebBanQuanAo.Models;
+@{var user = (TAIKHOAN)Session["dnhap"]; }
+  
+    <h2>Danh sách đơn hàng của bạn</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TAIKHOAN.HoTen)
+            </th>
+            <th>
+                Số sản phẩm
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+      
+            @foreach (var item in Model)
+            {
+                if(user.Username==item.MaKH)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaHD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TAIKHOAN.HoTen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GIAODICH.Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayDat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Chi tiết", "Details", new { id = item.MaHD })
+                    </td>
+                   
+                    <td>
+                        @Html.ActionLink("Hủy đơn", "HuyDon", new { id = item.MaHD })
+                    </td>
+                </tr>
+                }
+                
+            }
+    </table>
+
+

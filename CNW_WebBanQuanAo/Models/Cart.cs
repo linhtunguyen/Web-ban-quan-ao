@@ -8,12 +8,8 @@ namespace CNW_WebBanQuanAo.Models
     [Serializable]
     public class CartItem
     {
-
         public SANPHAM Sanpham { get; set; }
         public int Quantity { set; get; }
-
-
-
     }
     public class Cart
     {
@@ -66,11 +62,12 @@ namespace CNW_WebBanQuanAo.Models
             lineCollection.RemoveAll(l => l.Sanpham.MaQA == sp.MaQA);
         }
 
-        /* public int? ComputeTotalValue()
-         {
-             return lineCollection.Sum(e => e. * e.Quantity);
-
-         }*/
+        public int GetProductQuantity(SANPHAM sp)
+        {
+            return lineCollection.Where(s => s.Sanpham.MaQA == sp.MaQA)
+                .Single()
+                .Quantity;
+        }
         public List<CartItem> Lines
         {
             get { return lineCollection; }

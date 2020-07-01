@@ -16,7 +16,7 @@ namespace CNW_WebBanQuanAo.Controllers
         public ActionResult Index()
         {
             var model = context.MATHANG.Where(x => x.MaMH != null).ToList();
-
+            System.Diagnostics.Debug.WriteLine("Vao on index roi nha");
 
             return View(model);
         }

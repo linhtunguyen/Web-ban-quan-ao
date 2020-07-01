@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/Content/css/adminHuy.css" rel="stylesheet">
 </head>
+
 @using CNW_WebBanQuanAo.Models;
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -34,15 +36,19 @@
                     <li><a href="~/Home/Index">Trở lại trang mua sắm</a></li>
 
                     @{var user = (TAIKHOAN)Session["AdminLogin"];
+                         
+
                         if (user == null)
                         {
 
                             <li class=" dropdown">
                                 <a href="/Account/DangNhap"><i class="fa fa-user"> Đăng nhập</i> </a>
+                                <br />
                                 <ul class="sub-menu">
-                                    <li><a href="/Admin/Admin/Register" style="background: none;">Đăng kí</a></li>
                                     <br />
-                                    <li><a href="/Admin/Admin/Logout" style="background: none;">Đăng xuất</a></li>
+                                    <li><a href="~/Admin/Admin/Register" style="background: none;">Đăng kí</a></li>
+                                    <br />
+                                    <li><a href="~/Admin/Admin/Logout" style="background: none;">Đăng xuất</a></li>
                                 </ul>
 
                             </li>
@@ -50,8 +56,10 @@
                         else
                         {
                             <li class=" dropdown">
-                                <a href="#"><i class="fa fa-user"> @user.HoTen</i> </a>
+                                <a href="#"><i class="fa fa-user"> @user.Username</i> </a>
+                                <br />
                                 <ul class="sub-menu">
+                                    <br />
                                     <li><a href="~/Admin/Admin/Register" style="background: none;">Đăng kí</a></li>
                                     <br />
                                     <li><a href="~/Admin/Admin/Logout" style="background: none;">Đăng xuất</a></li>

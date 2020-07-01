@@ -292,8 +292,7 @@
                     <!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="~/Content/images/sanpham/@Model.UrlAnh" alt="" />
-                            @*<h3>ZOOM</h3>*@
+                            <img id="ImgChinh" class="zoom" src="~/Content/images/sanpham/@Model.UrlAnh" alt="" />
                         </div>
                         @* Xu ly sau phan nay *@
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -307,34 +306,30 @@
                                         var k = Model.ANH.Count - j;
                                         if (j == 0)
                                         {
-                                          <div class="item active">
-                                               @for (var t = 0; t < k; t++)
+                                            <div class="item active">
+                                                @for (var t = 0; t < k; t++)
                                                 {
 
-                                                   <a class="hand"><img style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" class="zoom" alt=""></a>
-                                               
-                                                                    }
-                                                 </div>
+                                                    <img id="ImgCon" style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" class="hand" alt="" onclick="SubImageClick($(this).attr('src'))">
+
+                                                }
+                                            </div>
                                         }
                                         else
                                         {
-                            <div class="item">
-                                @for (var t = 0; t < k; t++)
-                                {
+                                            <div class="item">
+                                                @for (var t = 0; t < k; t++)
+                                                {
 
-                                    <a class="hand"><img style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" class="zoom" alt=""></a>
-                                   
-                                }
-                            </div>
+                                                    <a class="hand"><img id="ImgCon" style="width:80px" src="~/Content/images/sanpham/@listAnh[j+t].UrlAnh" onclick="SubImageClick($(this).attr('src'))" class="hand" alt=""></a>
+
+                                                }
+                                            </div>
 
                                         }
                                     }
                                 }
-
-
-
                             </div>
-
                             <!-- Controls -->
                             <a class="left item-control" href="#similar-product" data-slide="prev">
                                 <i class="fa fa-angle-left"></i>
@@ -498,6 +493,11 @@
         return '#' + parts.join('');
     }
 
+    function SubImageClick(btn) {
+        //alert($(this).attr('src'))
+        //alert(btn)
+        $("#ImgChinh").attr('src', btn);
+    }
     $(document).ready(function () {
         $("#BangMau div").ready(function () {
             $("#BangMau #1").css("border", "3px solid");
@@ -561,13 +561,6 @@
                 }
             })
         })
-
-       
-
     });
-
-  
-   
-  
 </script>
 

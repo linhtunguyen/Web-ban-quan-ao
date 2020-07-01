@@ -104,7 +104,6 @@
                     $("#imgMH").attr('src', '/Content/images/sanpham/' + data)
                 },
                 error: function (err) {
-                    alert('error roi');
                 }
             })
             $.ajax({
@@ -114,7 +113,6 @@
                     $('#MaMau').children("option:selected").val(),
                 type: 'POST',
                 success: function (data) {
-                    alert(data);
                     if (data < 0) {
                         $("#SoLuong").val(0);
                         $("form").attr('action', '/Admin/SANPHAM/Edit');
@@ -127,7 +125,6 @@
                     }
                 },
                 error: function (err) {
-                    alert('error roi');
                 }
             })
         })
